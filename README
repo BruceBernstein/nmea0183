@@ -1,0 +1,26 @@
+README for nmea0183 test parser
+
+This program implements the Getaround Embedded Software Coding Exercise.
+
+To compile:
+make
+
+To run:
+make test:
+
+The data file has a couple of deliberate errors in it to generate messages and test error handling.
+
+The program will exit after writing 100 lines of data.
+
+Most of the data is the same, copied and pasted from the only two GPRMC sentences in the file (which was originally sourced from the WikiPedia NMEA 0183 article.
+
+Implementation notes:
+
+I implemented a few general purpose read/parse functions, but hard-coded the result generation in main().  This loss of generality is a result of time constraints.
+The specification was ambiguous in terms of whther the program needed to create a pipe.   I chose to assume that the input would be piped into stdin.
+There was no specification as to how to deliver the output file, so I chose to write it to stdout and let the shell write the file.   The idea of saving 100 lines and writing the output was juxtaposed in the spec, so I assumed they were talking about the same thing.
+
+I used fixed buffers on the stack because I didn't see any examples which would require a more general approach.
+I used a flexible indexing scheme rather than a sequential custom parse because I thought the few "rewinds" would not be significant compared to the I/O time.
+
+Bruce 
